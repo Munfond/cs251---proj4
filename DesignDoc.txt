@@ -1,0 +1,47 @@
+// =================== CS251 DEX Project =================== // 
+//                      Design Document                      //
+//               Will Healy, Brendan McLaughlin              //
+// ========================================================= //  
+
+
+1. Explain why adding and removing liquidity to your exchange does not change the exchange rate.
+
+Adding and removing liquidity from the pool does not change the exchange rate because you are adding the same percentage of capital to each pool. Thus, the proportion of each asset in the pool remains constant.
+
+2. Explain your scheme for rewarding liquidity providers and justify the design decisions you made. How does it satisfy the liquidity rewards requirements outlined in Section 7?
+
+Our scheme for rewarding the liquidity providers works as follows. Whenever someone makes a swap, we subtract p * amount being swapped from the amount that we send them where p is the percent fee taken for liquidity providers.
+We keep track of the variables token_reserves and eth_reserves with these deducted values. For example, if p = 3 and the user sends in k eth to get tokens in return,
+we first calculate the amount of tokens that they would be owed. Call this value n. We then decrease token_reserves by .97n and increase eth_reserves by k*.97. This way, 3 percent
+of the swappers money goes into the address's assets but not into the reserves. We then take this difference in the value of the account and the reserves and consider this to be the 
+accumulated fees. When an LP wants to remove liquidity, they enter some amount of ETH that they would like to remove. We first calculate how many shares this corresponds to. We 
+do this by keeping track of the amount of shares that each LP owes and changing total_shares accordingly to add and reduce value from LP's accounts. Once we know how many shares the LP owns,
+we take the fraction of their shares and the total shares and multiply it by the fee pool. This reward is then added to the amount of liquidity that they wished to withdraw. This satisfies
+the first condition on the design doc because each swapper is charged a nonzero amount when they swap, the second condition since the swapper gets back 1-p times the value they put in when they
+want to swap, the third condition since the liquidity providers get their rewards added to the amount they are sent automatically when they call remove liquidity. In terms of gas costs, we avoided
+implementing it in a way that pays the LPs every time someone swaps as this would be very expensive in terms of gas. 
+
+
+3. Describe at least one method you used to minimize your exchange contract's gas usage. Why was this method effective?
+
+One example of how we minimized gas costs is by calling removeLiquidity in our removeAllLiquidity function. This minimizes gas costs significantly
+by having fewer total lines of code in the contract compared to implementing a specialized removeAllLiquidity function.
+
+4. Optional Feedback:
+4a. How much time did you spend on the assignment?
+
+20 hours
+
+4b. What is one thing that would have been useful to know before starting the assignment?
+
+# TODO: answer question 4(b) here
+
+4c. If you could change one with about this assignment, what would you change?
+
+# TODO: answer question 4(c) here
+
+4d. Please feel free to include any other feedback you may have below.
+
+# TODO: answer question 4(d) here
+
+

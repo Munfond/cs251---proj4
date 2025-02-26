@@ -92,10 +92,9 @@ contract TokenExchange is Ownable {
     //                    FUNCTIONS TO IMPLEMENT
     // ============================================================
     function calcDeltaToken(uint delta_eth) private view returns (uint) {
-        // delta eth is in wei
-        uint delta_token = (token.balanceOf(address(this)) * delta_eth) /
+        uint delta = (token.balanceOf(address(this)) * delta_eth) /
             (address(this).balance);
-        return delta_token;
+        return delta;
     }
 
     /* ========================= Liquidity Provider Functions =========================  */

@@ -368,7 +368,7 @@ const token_abi = [
 ];
 const token_contract = new ethers.Contract(token_address, token_abi, provider.getSigner());
 
-const exchange_address = '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266';
+const exchange_address = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
 const exchange_abi = [
   {
     "inputs": [],

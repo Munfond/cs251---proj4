@@ -17,9 +17,6 @@ contract Token is Ownable, ERC20 {
     //                    FUNCTIONS TO IMPLEMENT
     // ============================================================
 
-    // Function mint: Create more of your tokens.
-    // You can change the inputs, or the scope of your function, as needed.
-    // Do not remove the onlyOwner modifier!
     function mint(uint amount) 
         public 
         onlyOwner
